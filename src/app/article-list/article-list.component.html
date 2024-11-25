@@ -1,0 +1,50 @@
+<main class="pt-2 flex-fill flex-column d-flex">
+  <div class="px-4">
+    <app-login></app-login>
+  </div>
+    <div class="d-flex justify-content-between pt-2 ps-4" >
+        <div class="nav nav-tabs" style="min-width: 60%;" role="tablist">
+            <button *ngFor="let tab of tabs"
+                class="nav-item nav-link"
+                [ngClass]="activeTab == tab ? 'bg-black text-light ' : 'bg-light text-black border-secondary'"
+                (click)="setActiveTab(tab)"
+            >
+                {{ tab }}
+            </button>
+        </div>
+        <div class="input-group p-1 pe-4 flex-fill" style="max-width: 500px;">
+            <span class="input-group-text border-dark bg-black">
+                <i class="bi bi-search"style="color: white"></i>
+            </span>
+            <input type="text" class="form-control border-dark" [(ngModel)]="searchText" placeholder="Search...">
+        </div>
+    </div>
+    <div class="bg-black  p-4 flex-column flex-fill d-flex">
+        <div *ngIf="(articleList | searchCategory:activeTab | search:searchText) as filteredArtciles" class="flex-column flex-fill d-flex">
+          <div *ngIf="filteredArtciles.length != 0 ; else noArticle" class="card-columns">
+            <div *ngFor="let article of filteredArtciles" class="py-2">
+              <div class="card">
+                <a [routerLink]="['/article-details/' + article.id]">
+                  <img *ngIf="article.thumbnail_image != null && article.thumbnail_media_type != null"
+                  class="card-img-top" [src]="'data:' + article.thumbnail_media_type + ';base64,' + article.thumbnail_image"/>
+                </a>
+                <div class="card-body">
+                  <a class="text-black" [routerLink]="['/article-details/' + article.id]">
+                    <h4 class="card-title"><strong>{{ article.title }}</strong></h4>
+                  </a>
+                  <h6 [innerHTML]="article.subtitle"></h6>
+                  <p class="card-text" [innerHTML]="article.abstract"></p>
+                  <p class="card-text"><small class="text-muted">Last updated {{ article.update_date }}</small></p>
+                  <a *ngIf="loginSrv.isLogged()" class="btn btn-dark me-1" [routerLink]="['/article-edition/' + article.id]">Edit</a>
+                  <a *ngIf="loginSrv.isLogged()" class="btn btn-dark" (click)="delete(article)">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</main>
+
+<ng-template #noArticle>
+  <p class="text-light d-flex flex-fill justify-content-center align-items-center">No articles match your research...</p>
+</ng-template>

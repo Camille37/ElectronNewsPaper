@@ -1,0 +1,21 @@
+<main class="d-flex flex-column" style="min-height: 100vh;">
+  <nav class="navbar navbar-expand-lg navbar-dark justify-content-between bg-dark ps-4" style="background-color: #e3f2fd;">
+    <div class="d-flex flex-row align-items-center">
+      <i class="bi bi-newspaper px-3" style="font-size: 30px; color: white" [routerLink]="['/article-list']"></i>
+      <a class="navbar-brand" [routerLink]="['/article-list']"><h1>NewsPaper</h1></a>
+    </div>
+
+    <button *ngIf="loginSrv.isLogged()" class="btn btn-light mx-3 flex-row" [routerLink]="['/article-edition/6000']">
+      <i class="bi bi-plus-circle-fill me-2" style="font-size: 20px;"></i>
+      <span class="h5">New Article</span>
+    </button>
+  </nav> 
+
+  <div class="main d-flex flex-column flex-fill">
+    <router-outlet/>
+  </div>
+</main>
+
+
+
+

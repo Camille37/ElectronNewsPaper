@@ -1,0 +1,5 @@
+/* To ensure that the text will be see and easily by the user*/
+.wrap-text {
+    white-space: normal; 
+    word-wrap: break-word;  
+}

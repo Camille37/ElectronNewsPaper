@@ -1,0 +1,19 @@
+.nav-link:focus {
+    border-color: black;
+}
+
+.card{
+    break-inside: avoid;
+}
+  
+@media (min-width: 992px) { /* lg */
+    .card-columns {
+      column-count: 2;
+    }
+  }
+  
+  @media (min-width: 1200px) { /* xl */
+    .card-columns {
+      column-count: 3;
+    }
+}
