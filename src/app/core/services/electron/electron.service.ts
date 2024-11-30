@@ -50,6 +50,64 @@ export class ElectronService {
     }
   }
 
+  sendNotification(body: { title: string; message: string; callback?: () => void }) {
+		if (this.isElectron) {
+			this.ipcRenderer.invoke('show-notification', {
+				title: body.title,
+				message: body.message,
+				callbackEvent: 'notification-clicked-answer',
+			})
+
+			this.ipcRenderer.on('notification-clicked', () => {
+				if (body.callback) {
+					body.callback()
+				}
+			})
+		} else {
+			return Promise.reject('Not running in Electron environment')
+		}
+	}
+
+	storeValue(key: string, value: string) {
+		if (this.ipcRenderer) {
+			this.ipcRenderer.invoke('store-value', key, value)
+		} else {
+			localStorage.setItem(key, value)
+		}
+		return null
+	}
+
+	async getValue(key: string): Promise<{ path: string; data: string }> {
+		let value
+		if (this.ipcRenderer) {
+			value = await this.ipcRenderer?.invoke('get-value', key)
+		} else {
+			value = localStorage.getItem(key)
+		}
+		return value
+	}
+
+	removeValue(key: string): Promise<string> {
+		const value = this.ipcRenderer.invoke('remove-value', key)
+		return value
+	}
+
+	async getAllValues(): Promise<{ path: string; data: string }> {
+		return await this.ipcRenderer?.invoke('get-all-values')
+	}
+	clearStore(): Promise<{ path: string; data: string }> {
+		return this.ipcRenderer?.invoke('clear-all-values')
+	}
+
+	exportArticle(text: string) {
+		this.ipcRenderer.invoke('export-text', text)
+	}
+
+	async importArticle(): Promise<string> {
+		const result: string = await this.ipcRenderer.invoke('import-text')
+		return result
+	}
+
   get isElectron(): boolean {
     return !!(window && window.process && window.process.type);
   }

@@ -6,6 +6,7 @@ import { Article } from '../interfaces/article';
 import { NewsService } from '../services/news.service';
 import { LoginService } from '../services/login.service';
 import { ActivatedRoute } from '@angular/router';
+import { ElectronService } from '../core/services';
 //import { User } from '../interfaces/user';
 
 @Component({
@@ -14,6 +15,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './article-edition.component.css'
 })
 export class ArticleEditionComponent implements OnInit{
+
+  electSvr : ElectronService;
 
   ngOnInit(): void {
     const articleId = this.route.snapshot.paramMap.get('id');
@@ -28,10 +31,11 @@ export class ArticleEditionComponent implements OnInit{
     (value): value is any => typeof value === 'string'
   );
 
-  constructor(private router: Router, private route: ActivatedRoute, loginSrv : LoginService, newsSrv : NewsService) {
+  constructor(private router: Router, private route: ActivatedRoute, loginSrv : LoginService, newsSrv : NewsService, private electSrv : ElectronService) {
     this.article.update_date = new Date().toISOString();
     this.loginSrv = loginSrv;
     this.newsSvr = newsSrv;
+    this.electSvr = electSrv;
     //this.isLogged = this.loginSrv.isLogged();
     //this.user = this.loginSrv.getUser() ?? {} as User;
   }
@@ -95,6 +99,13 @@ export class ArticleEditionComponent implements OnInit{
       this.newsSvr.updateArticle(this.article).subscribe(() => {
         alert("The article has been saved correctly")
         this.router.navigate(['/article-list']);
+      });
+      this.electSvr.sendNotification({
+        title: `The article : ${this.article.title} has been saved`,
+        message:'',
+        callback: () => {
+          console.log(`The article "${this.article.title}" has been saved.`);
+        },
       });
       this.article.user_last_edit = this.user_last_edit;
       console.log('The user who edited the last time was: '+this.article.user_last_edit);

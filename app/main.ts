@@ -1,4 +1,14 @@
-import {app, BrowserWindow, screen} from 'electron';
+import {app,
+  screen,
+  ipcMain,
+  BrowserWindow,
+  dialog,
+  Notification,
+  Menu,
+  globalShortcut,
+  MenuItem,
+  nativeTheme,
+  IpcMain,} from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -81,3 +91,16 @@ try {
   // Catch Error
   // throw e;
 }
+
+ipcMain.handle('show-notification', (event, body: any) => {
+	const notification = new Notification({
+		title: body.title || 'Title missing',
+		body: body.message || 'Body missing',
+		silent: true,
+	})
+	notification.on('click', () => {
+		event.sender.send('notification-clicked')
+	})
+	console.log(notification)
+	notification.show()
+})
