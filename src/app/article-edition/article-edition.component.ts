@@ -109,6 +109,7 @@ export class ArticleEditionComponent implements OnInit{
       });
       this.article.user_last_edit = this.user_last_edit;
       console.log('The user who edited the last time was: '+this.article.user_last_edit);
+      this.router.navigate(['/article-list']);
     }
   }
 

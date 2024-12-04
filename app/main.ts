@@ -16,6 +16,8 @@ let win: BrowserWindow | null = null;
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
 
+const os = require('os')
+
 function createWindow(): BrowserWindow {
 
   const size = screen.getPrimaryDisplay().workAreaSize;
@@ -91,6 +93,51 @@ try {
   // Catch Error
   // throw e;
 }
+
+ipcMain.handle('export-article-json', (event, articleJson: string) => {
+  try {
+    const exportPath = path.join(os.homedir(), 'Desktop', 'article_export.json');
+    fs.writeFileSync(exportPath, articleJson, 'utf8');
+
+    dialog.showMessageBox({
+      type: 'info',
+      title: 'Article Exported',
+      message: 'Article exported to: ' + exportPath,
+      buttons: ['OK'],
+    });
+
+    return { success: true, path: exportPath };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+});
+
+
+ipcMain.handle('import-text', async (event) => {
+	try {
+		// Show the file dialog to choose a .txt file
+		const result = await dialog.showOpenDialog({
+			properties: ['openFile'],
+			filters: [{ name: 'Text Files', extensions: ['txt'] }],
+		})
+
+		// Check if the user selected a file
+		if (result.canceled || result.filePaths.length === 0) {
+			return { success: false, error: 'No file selected' }
+		}
+
+		const filePath = result.filePaths[0]
+
+		// Read the file content as text
+		const fileContent = fs.readFileSync(filePath, 'utf8')
+
+		// Return the file content
+		return { success: true, content: fileContent }
+	} catch (error: any) {
+		return { success: false, error: error.message }
+	}
+})
+
 
 ipcMain.handle('show-notification', (event, body: any) => {
 	const notification = new Notification({

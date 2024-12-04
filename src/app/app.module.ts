@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { SearchCategoryPipe } from './pipes/search-category.pipe';
 import { SearchPipe } from './pipes/search.pipe';
+import { FilesystemComponent } from "./components/filesystem/filesystem.component";
 
 @NgModule({
   declarations: [
@@ -21,15 +22,16 @@ import { SearchPipe } from './pipes/search.pipe';
     ArticleListComponent,
     LoginComponent,
     SearchCategoryPipe,
-    SearchPipe
+    SearchPipe,
+    FilesystemComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule,
-  ],
+    HttpClientModule
+],
   providers: [
     provideClientHydration(),
     provideHttpClient(withFetch()),
