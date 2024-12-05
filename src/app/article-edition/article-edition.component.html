@@ -1,4 +1,4 @@
-<div class="mt-4"  style="background-color: #f3f3f3;">
+<div class="mt-4 draggable-header" style="background-color: #f3f3f3;">
     <div class="border-bottom border-top d-flex flex-row align-items-center" (click)="showview = !showview">
         <h3 class="text-dark ps-4 pe-2 py-3">View</h3>
         <i class="bi me-4"
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div id="article-view" class="container mt-3">
+<div id="article-view" class="container mt-3 no-select">
     <form #myForm="ngForm" class="pb-3">
         <div class="form-text mb-1" id="basic-addon4"><strong>Title*</strong></div>
         <div class="input-group p-1 mb-3">

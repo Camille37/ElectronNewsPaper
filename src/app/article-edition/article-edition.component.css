@@ -3,3 +3,26 @@
     white-space: normal; 
     word-wrap: break-word;  
 }
+
+.draggable-header {
+  -webkit-app-region: drag;
+  background-color: #333;
+  color: white;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  user-select: none;
+  }
+  .controls button {
+    -webkit-app-region: no-drag;
+    border: none;
+    background: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .no-select {
+    user-select: none;
+  }
