@@ -24,6 +24,7 @@ function createWindow(): BrowserWindow {
 
   // Create the browser window.
   win = new BrowserWindow({
+    show: false,
     x: 0,
     y: 0,
     width: size.width,
@@ -33,6 +34,12 @@ function createWindow(): BrowserWindow {
       allowRunningInsecureContent: (serve),
       contextIsolation: false,
     },
+  });
+
+  win.once('ready-to-show', () => {
+    if(win){
+      win.show(); 
+    }
   });
 
   if (serve) {
