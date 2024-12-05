@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="bg-black  p-4 flex-column flex-fill d-flex">
-        <div *ngIf="(articleList | searchCategory:activeTab | search:searchText) as filteredArtciles" class="flex-column flex-fill d-flex">
+        <div *ngIf="(newsSrv.articleList | searchCategory:activeTab | search:searchText) as filteredArtciles" class="flex-column flex-fill d-flex">
           <div *ngIf="filteredArtciles.length != 0 ; else noArticle" class="card-columns">
             <div *ngFor="let article of filteredArtciles" class="py-2">
               <div class="card">

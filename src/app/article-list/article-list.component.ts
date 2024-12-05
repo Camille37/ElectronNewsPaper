@@ -11,7 +11,7 @@ import { ElectronService } from '../core/services';
   templateUrl: './article-list.component.html',
   styleUrl: './article-list.component.css'
 })
-export class ArticleListComponent implements OnInit{
+export class ArticleListComponent {
 
   activeTab: Category = Category.All; // active tab by default;
   tabs : any = Object.values(Category); // list of tabs
@@ -19,7 +19,6 @@ export class ArticleListComponent implements OnInit{
   loginSrv: LoginService;
 
   newsSvr : NewsService;
-  articleList : Article[] = [];
   electSvr : ElectronService;
 
   constructor(private newsSrv : NewsService, loginSrv : LoginService, private electSrv : ElectronService){
@@ -31,9 +30,6 @@ export class ArticleListComponent implements OnInit{
     this.electSvr = electSrv;
   }
 
-  ngOnInit() {
-    this.getArticles();
-  }
   
   setActiveTab(tab: Category) {
     this.activeTab = tab; // update the active onglet in the menu
@@ -55,20 +51,9 @@ export class ArticleListComponent implements OnInit{
           console.log(`The article "${article.title}" has been deleted.`);
         },
       });
-      this.getArticles();
+      this.newsSrv.loadArticles();
     }
    
-  }
-
-  getArticles(){
-    this.newsSrv.getArticles().subscribe(
-      (data: Article[]) => {
-        this.articleList = data;
-      },
-      error => {
-        console.error('Erreur lors de la récupération des articles:', error);
-      }
-    );
   }
   
 }
