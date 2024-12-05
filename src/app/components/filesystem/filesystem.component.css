@@ -1,0 +1,57 @@
+/* Container to align the buttons side by side */
+.button-group {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between the buttons */
+  }
+  
+  /* Custom file input styling */
+  .custom-file-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* Hide the native file input */
+  .custom-file-input input[type="file"] {
+    display: none;
+  }
+  
+  /* Styling for the custom file button */
+  .custom-file-input .file-button {
+    padding: 10px 15px;
+    background-color: #4a4a4a; /* A soft dark gray */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-file-input .file-button:hover {
+    background-color: #2f2f2f; /* Slightly darker gray on hover */
+  }
+  
+  /* Styling for the file name text */
+  .custom-file-input span {
+    font-size: 14px;
+    color: #666; /* Lighter gray for text */
+  }
+  
+  /* Styling for the export button */
+  .export-button {
+    padding: 10px 15px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .export-button:hover {
+    background-color: #2f2f2f; /* Slightly darker gray on hover */
+  }
+  

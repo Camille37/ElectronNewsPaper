@@ -96,7 +96,16 @@ try {
 
 ipcMain.handle('export-article-json', (event, articleJson: string) => {
   try {
-    const exportPath = path.join(os.homedir(), 'Desktop', 'article_export.json');
+    // Parse the JSON to access the article title
+    const article = JSON.parse(articleJson);
+    let articleTitle = article.title;
+
+    /* Clean the title to use it as a valid file name 
+       replace invalid characters with '_'
+    */
+    articleTitle = articleTitle.replace(/[^a-zA-Z0-9-_]/g, '_'); 
+    
+    const exportPath = path.join(os.homedir(), 'Desktop', `${articleTitle}.json`);
     fs.writeFileSync(exportPath, articleJson, 'utf8');
 
     dialog.showMessageBox({

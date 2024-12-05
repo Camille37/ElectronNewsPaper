@@ -1,11 +1,11 @@
 <div class="filesystem-container">
-    <h4>Import/Export Article</h4>
-
-    <button class="btn btn-dark" (click)="exportArticleToJson()">PDF export</button>
-    <input type="file" (change)="onFileChange($event)" />
-
-    <div *ngIf="importedContent" class="mt-4">
-        <h5>Imported Content:</h5>
-        <p class="border p-2 bg-light">{{ importedContent }}</p>
+    <h4>Export/Import Article</h4>
+    <div class="button-group">
+        <button class="export-button" (click)="exportArticleToJson()">PDF export</button>
+        <div class="custom-file-input">
+          <label for="fileInput" class="file-button">Choose File</label>
+          <input type="file" id="fileInput" (change)="onFileChange($event)" />
+          <span id="fileName">No file chosen</span>
+        </div>
     </div>
 </div>
