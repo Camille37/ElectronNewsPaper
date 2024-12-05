@@ -6,14 +6,16 @@
            [ngClass]="showview ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
     </div>
     <div *ngIf="showview" class="container">
-        <div class="text-center pb-4 mt-4">
-            <h2><strong>{{ article.title }}</strong></h2>
-            <h3 >{{ article.subtitle }}</h3>
-            <h4 class="my-3"><u>{{ article.category }}</u></h4>
-            <img *ngIf="article.image_data != null && article.image_media_type != null"
-            class="card-img-top" [src]="'data:' + article.image_media_type + ';base64,' + article.image_data"
-            style="width: 50%; height: auto;"/>
-            <h5 class="mb-3 mt-2" [innerHTML]="article.abstract"></h5>
+        <div class="pb-4 mt-4">
+            <h2 class="my-5 text-center"><strong>{{ article.title }}</strong></h2>
+            <h3 [innerHTML]="article.subtitle" class="text-center my-4"></h3>
+            <h4 class="my-3 text-center"><u>{{ article.category }}</u></h4>
+            <div class="text-center">
+                <img *ngIf="article.image_data != null && article.image_media_type != null"
+                    class="card-img-top" [src]="'data:' + article.image_media_type + ';base64,' + article.image_data"
+                    style="width: 50%; height: auto;"/>
+            </div>
+            <h5 class="my-3" [innerHTML]="article.abstract"></h5>
             <p [innerHTML]="article.body"></p>
         </div>
     </div>
