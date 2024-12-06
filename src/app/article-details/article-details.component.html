@@ -3,7 +3,7 @@
     <h3 class="my-4 text-center" [innerHTML]="article.subtitle"></h3>
     <h4 class="my-3 text-center"><u>{{ article.category }}</u></h4>
     <div class="text-center">
-      <img *ngIf="article.image_data != null && article.image_media_type != null"
+      <img *ngIf="article.image_data !== null && article.image_media_type !== null"
             class="card-img-top mb-3" [src]="'data:' + article.image_media_type + ';base64,' + article.image_data"
             style="width: 50%; height: auto;"/>
     </div>
@@ -12,6 +12,12 @@
     <div class="border-bottom border-top d-flex flex-row mb-3" style="background-color: #f3f3f3;"></div>
     <p class="card-text"><small class="text-muted">Last updated: {{ article.update_date }} by User ID: {{ article.id_user }}</small></p>
     <!-- <p class="card-text"><small class="text-muted">Last updated: {{ article.update_date }} by Username: {{ article.user_last_edit }}</small></p>-->
+</div>
+
+<div class="d-grid gap-2 d-md-flex justify-content-center">
+  <button *ngIf="loginSvr.isLogged()" class="btn btn-dark btn-primary mx-2" [routerLink]="['/article-edition/' + article.id]">Edit</button>
+  <button *ngIf="loginSvr.isLogged()" class="btn btn-dark btn-secondary mx-2" (click)="delete(article)">Delete</button>
+  <button *ngIf="loginSvr.isLogged()" class="btn btn-dark btn-success mx-2" (click)="exportArticleToJson(article)">Export as JSON</button>
 </div>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">

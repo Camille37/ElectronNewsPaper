@@ -19,6 +19,8 @@ export class ArticleListComponent {
   searchText: string = '';
   loginSrv: LoginService;
 
+  textToExport: string = ''
+
   newsSvr : NewsService;
   electSvr : ElectronService;
 
@@ -55,6 +57,17 @@ export class ArticleListComponent {
       this.newsSrv.loadArticles();
     }
 
+  }
+
+  exportArticleToJson(article: Article): void {
+    if (!article) {
+      console.error('Article is undefined');
+      alert("There was an error to export the article")
+      return;
+    }
+    // We change the format of article to JSON and use the electron Service
+    const articleJson = JSON.stringify(article);
+    this.electSrv.exportArticleAsJson(articleJson);
   }
 
 }

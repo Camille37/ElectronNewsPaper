@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
 import { ArticleEditionComponent } from './article-edition/article-edition.component';
 import { ArticleListComponent } from './article-list/article-list.component';
-import { LoginComponent } from './login/login.component';
+//import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { SearchCategoryPipe } from './pipes/search-category.pipe';
@@ -15,6 +15,8 @@ import { SearchPipe } from './pipes/search.pipe';
 import { FilesystemComponent } from "./components/filesystem/filesystem.component";
 import { CommonModule } from '@angular/common';
 import { ArticleCreationComponent } from './article-creation/article-creation.component';
+//import { LoginModule } from './login/login.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { ArticleCreationComponent } from './article-creation/article-creation.co
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    //LoginModule
 ],
   providers: [
     provideClientHydration(),

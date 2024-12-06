@@ -60,6 +60,9 @@
           <textarea class="form-control border-dark wrap-text" rows="5" [(ngModel)]="article.body" name="body"></textarea>
       </div>
 
+      <div class="mt-4 mb-4">
+        <app-filesystem [article]="article"></app-filesystem>
+    </div>
 
       <div>
           <button class="btn btn-dark me-2" type="submit" [disabled]="!myForm.form.valid" (click)="create()">Save</button>
