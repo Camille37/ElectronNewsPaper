@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { User } from '../interfaces/user';

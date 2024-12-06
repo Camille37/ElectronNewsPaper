@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Category } from '../interfaces/category';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
@@ -10,14 +10,16 @@ import { NewsService } from '../services/news.service';
 import { LoginService } from '../services/login.service';
 import { ActivatedRoute } from '@angular/router';
 import { ElectronService } from '../core/services';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 //import { User } from '../interfaces/user';
 
 @Component({
-  selector: 'app-article-edition',
-  templateUrl: './article-edition.component.html',
-  styleUrl: './article-edition.component.css'
+  selector: 'app-article-creation',
+  templateUrl: './article-creation.component.html',
+  styleUrl: './article-creation.component.scss'
 })
-export class ArticleEditionComponent implements OnInit{
+export class ArticleCreationComponent {
 
   electSvr : ElectronService;
 
@@ -36,15 +38,6 @@ export class ArticleEditionComponent implements OnInit{
   imageError: string | null = null;
   isImageSaved: boolean = false;
   cardImageBase64: string | null = null;
-
-  ngOnInit(): void {
-    const articleId = this.route.snapshot.paramMap.get('id');
-    if (articleId) {
-      this.newsSvr.getArticle(articleId).subscribe((data: Article) => {
-        this.article = data;
-      });
-    }
-  }
 
   listCategory: any = Object.values(Category).filter(
     (value): value is any => typeof value === 'string'
@@ -96,24 +89,23 @@ export class ArticleEditionComponent implements OnInit{
     return true;
   }
 
-  save(){
+  create(){
     if (this.article) {
       this.user_last_edit = this.loginSrv.getUser()?.username;
-      this.newsSvr.updateArticle(this.article).subscribe(() => {
-        alert("The article has been saved correctly");
+      this.newsSvr.createArticle(this.article).subscribe(() => {
+        alert("The article has been created correctly")
         this.newsSvr.loadArticles();
         this.router.navigate(['/article-list']);
       });
       this.electSvr.sendNotification({
-        title: `The article : ${this.article.title} has been saved`,
+        title: `The article : ${this.article.title} has been created`,
         message:'',
         callback: () => {
-          console.log(`The article "${this.article.title}" has been saved.`);
+          console.log(`The article "${this.article.title}" has been created.`);
         },
       });
       this.article.user_last_edit = this.user_last_edit;
-      console.log('The user who edited the last time was: '+this.article.user_last_edit);
-      this.newsSvr.loadArticles();
+      console.log('The user who created it was: '+this.article.user_last_edit);
       this.router.navigate(['/article-list']);
     }
   }
@@ -121,4 +113,6 @@ export class ArticleEditionComponent implements OnInit{
   back(){
     this.router.navigate(['/article-list']);
   }
+
 }
+

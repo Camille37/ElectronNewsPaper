@@ -11,7 +11,7 @@
             <h3 [innerHTML]="article.subtitle" class="text-center my-4"></h3>
             <h4 class="my-3 text-center"><u>{{ article.category }}</u></h4>
             <div class="text-center">
-                <img *ngIf="article.image_data != null && article.image_media_type != null"
+                <img *ngIf="article.image_data !== null && article.image_media_type !== null"
                     class="card-img-top" [src]="'data:' + article.image_media_type + ';base64,' + article.image_data"
                     style="width: 50%; height: auto;"/>
             </div>
@@ -61,10 +61,8 @@
         </div>
 
 
-        <div class="mt-4 mb-4">
-            <app-filesystem [article]="article"></app-filesystem>
-        </div>
-        
+
+
         <div>
             <button class="btn btn-dark me-2" type="submit" [disabled]="!myForm.form.valid" (click)="save()">Save</button>
             <button class="btn btn-outline-dark" (click)="back()">Back</button>

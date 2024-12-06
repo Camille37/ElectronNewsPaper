@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Component, OnInit } from '@angular/core';
-import { Category } from '../interfaces/category';
+//import { Category } from '../interfaces/category';
 import { Router } from '@angular/router';
-import * as _ from 'lodash';
+//import * as _ from 'lodash';
 import { Article } from '../interfaces/article';
 import { NewsService } from '../services/news.service';
 import { LoginService } from '../services/login.service';

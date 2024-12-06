@@ -5,11 +5,11 @@
       <a class="navbar-brand" [routerLink]="['/article-list']"><h1>NewsPaper</h1></a>
     </div>
 
-    <button *ngIf="loginSrv.isLogged()" class="btn btn-light mx-3 flex-row" [routerLink]="['/article-edition/6000']">
+    <button *ngIf="loginSrv.isLogged()" class="btn btn-light mx-3 flex-row" [routerLink]="['/article-creation']">
       <i class="bi bi-plus-circle-fill me-2" style="font-size: 20px;"></i>
       <span class="h5">New Article</span>
     </button>
-  </nav> 
+  </nav>
 
   <div class="main d-flex flex-column flex-fill">
     <router-outlet/>

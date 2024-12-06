@@ -13,6 +13,8 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
 import { SearchCategoryPipe } from './pipes/search-category.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { FilesystemComponent } from "./components/filesystem/filesystem.component";
+import { CommonModule } from '@angular/common';
+import { ArticleCreationComponent } from './article-creation/article-creation.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { FilesystemComponent } from "./components/filesystem/filesystem.componen
     ArticleDetailsComponent,
     ArticleEditionComponent,
     ArticleListComponent,
+    ArticleCreationComponent,
     LoginComponent,
     SearchCategoryPipe,
     SearchPipe,
@@ -30,7 +33,8 @@ import { FilesystemComponent } from "./components/filesystem/filesystem.componen
     FormsModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
 ],
   providers: [
     provideClientHydration(),

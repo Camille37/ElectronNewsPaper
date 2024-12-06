@@ -13,7 +13,7 @@ export class NewsService {
   private articleUrl = 'http://sanger.dia.fi.upm.es/pui-rest-news/article';  // URL to web api
 
   constructor(private http: HttpClient) {
-    this.APIKEY = ""; 
+    this.APIKEY = "";
   }
 
   // Set the corresponding APIKEY accordig to the received by email
@@ -39,7 +39,7 @@ export class NewsService {
       })
     };
     console.log('Apikey successfully changed ' + this.APIKEY);
-    // Update articleList according to the new user authorizations 
+    // Update articleList according to the new user authorizations
     this.loadArticles();
   }
 
@@ -57,7 +57,7 @@ export class NewsService {
       error => {
         console.error('Error during arcticles recuperation', error);
       }
-    );;
+    );
   }
 
   // Returns the list of news contain elements with the following fields:
