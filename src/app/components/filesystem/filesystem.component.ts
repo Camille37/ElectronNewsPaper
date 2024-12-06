@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Component } from '@angular/core';
 import { ElectronService } from '../../core/services';
 
@@ -9,32 +11,32 @@ import { Input } from '@angular/core';
   styleUrl: './filesystem.component.css'
 })
 export class FilesystemComponent {
-  /* 
-  The article edition page gives to the file system 
+  /*
+  The article edition page gives to the file system
   the article the user wants to import or export
   */
   @Input() article: any;
 
-  textToExport: string = ''
+  // textToExport: string = ''
 	importedContent: any
 	constructor(private electronService: ElectronService) {}
 
-	exportArticleToJson(): void {
-    if (!this.article) {
-      console.error('Article is undefined');
-      return;
-    }
-    // We change the format of article to JSON and use the electron Service
-    const articleJson = JSON.stringify(this.article);
-    this.electronService.exportArticleAsJson(articleJson);
-  }
+	// exportArticleToJson(): void {
+  //   if (!this.article) {
+  //     console.error('Article is undefined');
+  //     return;
+  //   }
+  //   // We change the format of article to JSON and use the electron Service
+  //   const articleJson = JSON.stringify(this.article);
+  //   this.electronService.exportArticleAsJson(articleJson);
+  // }
 
   // Use to store the error for the import of the file
   importError: string = '';
 
 
   /*
-    We use this function when the user wants to import 
+    We use this function when the user wants to import
     a JSON file
   */
 
