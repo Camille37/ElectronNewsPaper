@@ -8,15 +8,44 @@
 .no-select {
   user-select: none;
 }
-  
+
 @media (min-width: 992px) { /* lg */
     .card-columns {
       column-count: 2;
     }
   }
-  
+
   @media (min-width: 1200px) { /* xl */
     .card-columns {
       column-count: 3;
     }
+}
+
+a {
+  cursor: none;
+}
+
+.wrap-text {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.draggable-header {
+-webkit-app-region: drag;
+background-color: #333;
+color: white;
+height: 40px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 10px;
+user-select: none;
+}
+.controls button {
+  -webkit-app-region: no-drag;
+  border: none;
+  background: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
 }

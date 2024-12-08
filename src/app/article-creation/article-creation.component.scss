@@ -1,0 +1,36 @@
+/* To ensure that the text will be seen easily by the user*/
+.wrap-text {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.draggable-header {
+-webkit-app-region: drag;
+background-color: #333;
+color: white;
+height: 40px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 10px;
+user-select: none;
+}
+.controls button {
+  -webkit-app-region: no-drag;
+  border: none;
+  background: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+.no-select {
+  user-select: none;
+}
+.error-highlight {
+  border: 2px solid red;
+  border-radius: 4px;
+  background-color: #ffe6e6; /* Light red background */
+}
+a {
+  cursor: none;
+}

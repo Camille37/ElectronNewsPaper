@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Injectable } from '@angular/core';
 
 // If you import a module but never use any of the imported values other than as TypeScript types,
 // the resulting javascript file will look as if you never imported the module at all.
 import { ipcRenderer, webFrame } from 'electron';
 import * as childProcess from 'child_process';
-import * as fs from 'fs';
+//import * as fs from 'fs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,32 +15,30 @@ export class ElectronService {
 	ipcRenderer!: typeof ipcRenderer;  // ipcRenderer sera initialisé après la vérification de l'environnement
 	webFrame!: typeof webFrame;
 	childProcess!: typeof childProcess;
-  
+
 	constructor() {
-	  if (this.isElectron) {
-		this.initializeElectron();
-	  }
+    if (this.isElectron) {
+      this.initializeElectron();
+    }
 	}
-  
+
 	private initializeElectron(): void {
-	  // Assure-toi que tout est bien initialisé ici
-	  this.ipcRenderer = (window as any).require('electron').ipcRenderer;
-	  this.webFrame = (window as any).require('electron').webFrame;
-	  this.childProcess = (window as any).require('child_process');
-  
-	  this.childProcess.exec('node -v', (error, stdout, stderr) => {
-		if (error) {
-		  console.error(`error: ${error.message}`);
-		  return;
-		}
-		if (stderr) {
-		  console.error(`stderr: ${stderr}`);
-		  return;
-		}
-		console.log(`stdout:\n${stdout}`);
-	  });
+    this.ipcRenderer = (window as any).require('electron').ipcRenderer;
+    this.webFrame = (window as any).require('electron').webFrame;
+    this.childProcess = (window as any).require('child_process');
+    this.childProcess.exec('node -v', (error, stdout, stderr) => {
+      if (error) {
+        console.error(`error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+        return;
+      }
+      console.log(`stdout:\n${stdout}`);
+    });
 	}
-  
+
 
   sendNotification(body: { title: string; message: string; callback?: () => void }) {
 		if (this.isElectron) {
@@ -93,7 +93,7 @@ export class ElectronService {
 		if (this.isElectron) {
 			return this.ipcRenderer.invoke('export-article-json', articleJson)
 		}
-	  }
+	}
 
 	async importArticle(): Promise<string> {
 		const result: string = await this.ipcRenderer.invoke('import-text')
