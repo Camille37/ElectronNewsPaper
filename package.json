@@ -1,11 +1,10 @@
 {
-  "name": "angular-electron",
-  "version": "14.0.1",
+  "name": "newsletter-angular-electron",
+  "version": "1.0.0",
   "description": "Angular 17 with Electron 30 (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "homepage": "https://github.com/Camille37/ElectronNewsPaper",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Mathias, Camille, Paula"
   },
   "keywords": [
     "angular",
@@ -34,6 +33,7 @@
     "build:prod": "npm run build -- -c production",
     "web:build": "npm run build -- -c web-production",
     "electron": "electron",
+    "electron-builder": "electron-builder",
     "electron:serve-tsc": "tsc -p tsconfig.serve.json",
     "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && electron . --serve",
     "electron:local": "npm run build:prod && electron .",
