@@ -11,8 +11,13 @@ import {app,
   IpcMain,} from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
+const Store = require('electron-store');
+
+const store = new Store();
+
 
 let win: BrowserWindow | null = null;
+
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
 
@@ -167,3 +172,17 @@ ipcMain.handle('show-notification', (event, body: any) => {
 	console.log(notification)
 	notification.show()
 })
+
+ipcMain.handle('store-value', (event, key: string, value: string) => {
+  store.delete(key);
+  store.set(key, value);
+  console.log(`Stored ${key} ${store.get(key)}`);
+  return null;
+});
+
+ipcMain.handle('get-value', (event, key: string) => {
+
+  const value = store.get(key);
+  console.log(`Retrieved ${key}: ${value}`);
+  return { path: key, data: value };
+});
