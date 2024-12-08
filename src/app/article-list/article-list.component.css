@@ -22,7 +22,7 @@
 }
 
 a {
-  cursor: none;
+  cursor: 'default';
 }
 
 .wrap-text {
