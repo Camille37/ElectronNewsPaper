@@ -36,7 +36,6 @@ export class LoginComponent implements OnDestroy, OnInit {
 
     this.loginSrv.login(userId[0], userId[1]).subscribe({
       next: (user: User) => {
-        this.isError = false; //delete the error message if it was displayed
         this.user = user;
         this.isLogged = this.loginSrv.isLogged();
       },

@@ -186,3 +186,7 @@ ipcMain.handle('get-value', (event, key: string) => {
   console.log(`Retrieved ${key}: ${value}`);
   return { path: key, data: value };
 });
+
+ipcMain.handle('remove-value', (event, key : String) => {
+  store.delete(key);
+});

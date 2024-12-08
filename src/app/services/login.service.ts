@@ -72,6 +72,8 @@ export class LoginService {
 
   logout() {
     this.user = null;
+    this.electronService.removeValue("userNameToken");
+    this.electronService.removeValue("userPwdToken");
   }
 
 
