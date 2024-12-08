@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { User } from '../interfaces/user';
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent implements OnDestroy, OnInit {
 
   isLogged : boolean ;
   isError: boolean = false;
@@ -31,6 +31,18 @@ export class LoginComponent implements OnDestroy {
     this.user = this.loginSrv.getUser() ?? {} as User;
   }
 
+ async ngOnInit() {
+    const userId : [string, string] = await this.loginSrv.initializeLogin();
+
+    this.loginSrv.login(userId[0], userId[1]).subscribe({
+      next: (user: User) => {
+        this.isError = false; //delete the error message if it was displayed
+        this.user = user;
+        this.isLogged = this.loginSrv.isLogged();
+      },
+      })
+  }
+
   @ViewChild('loginForm') loginForm: any;
 
   login(){
@@ -41,7 +53,6 @@ export class LoginComponent implements OnDestroy {
           this.isError = false; //delete the error message if it was displayed
           this.user = user;
           this.isLogged = this.loginSrv.isLogged();
-          this.newsSrv.setUserApiKey(user.apikey);
           this.loginForm.reset();
         },
         error: (err) => {
