@@ -1,0 +1,29 @@
+directories:
+  output: release/
+  buildResources: build
+asar: true
+files:
+  - filter:
+      - '**/*'
+      - '!**/*.ts'
+      - '!*.map'
+      - '!package.json'
+      - '!package-lock.json'
+  - from: ../dist
+    filter:
+      - '**/*'
+win:
+  icon: dist/assets/icons
+  target:
+    - portable
+portable:
+  splashImage: dist/assets/icons/electron.bmp
+mac:
+  icon: dist/assets/icons
+  target:
+    - dmg
+linux:
+  icon: dist/assets/icons
+  target:
+    - AppImage
+electronVersion: 30.0.1
