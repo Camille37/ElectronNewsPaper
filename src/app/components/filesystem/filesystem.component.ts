@@ -54,12 +54,12 @@ export class FilesystemComponent {
           const data = JSON.parse(content);
           this.setArticleData(data);
         } catch (error) {
-          this.importError = 'Erreur lors de la lecture du fichier JSON';
+          this.importError = 'Error reading JSON file';
         }
       };
       reader.readAsText(file);
     } else {
-      this.importError = 'Veuillez importer un fichier JSON valide';
+      this.importError = 'Please upload a valid JSON file';
     }
   }
 
