@@ -100,13 +100,12 @@ export class ArticleEditionComponent implements OnInit{
     if (this.article) {
       this.user_last_edit = this.loginSrv.getUser()?.username;
       this.newsSvr.updateArticle(this.article).subscribe(() => {
-        alert("The article has been saved correctly");
         this.newsSvr.loadArticles();
         this.router.navigate(['/article-list']);
       });
       this.electSvr.sendNotification({
         title: `The article : ${this.article.title} has been saved`,
-        message:'',
+        message:'You will be redirect to the main page',
         callback: () => {
           console.log(`The article "${this.article.title}" has been saved.`);
         },
