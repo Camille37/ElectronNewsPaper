@@ -96,26 +96,95 @@ export class ArticleEditionComponent implements OnInit{
     return true;
   }
 
-  save(){
-    if (this.article) {
-      this.user_last_edit = this.loginSrv.getUser()?.username;
-      this.newsSvr.updateArticle(this.article).subscribe(() => {
-        this.newsSvr.loadArticles();
-        this.router.navigate(['/article-list']);
-      });
+  save() {
+    if (!this.article) {
+      // Notify the user if there is no article to save
       this.electSvr.sendNotification({
-        title: `The article : ${this.article.title} has been saved`,
-        message:'You will be redirect to the main page',
-        callback: () => {
-          console.log(`The article "${this.article.title}" has been saved.`);
-        },
+        title: 'Error',
+        message: 'No article found to save.',
       });
-      this.article.user_last_edit = this.user_last_edit;
-      console.log('The user who edited the last time was: '+this.article.user_last_edit);
-      this.newsSvr.loadArticles();
-      this.router.navigate(['/article-list']);
+      return;
     }
+  
+    // Validate required fields
+    const errors: { field: string; message: string }[] = [];
+    
+    if (!this.article.title?.trim()) {
+      errors.push({ field: 'title', message: 'The title is required.' });
+    }
+    if (!this.article.subtitle?.trim()) {
+      errors.push({ field: 'subtitle', message: 'The subtitle is required.' });
+    }
+    if (!this.article.abstract?.trim()) {
+      errors.push({ field: 'abstract', message: 'The abstract is required.' });
+    }
+    if (!this.article.category?.trim()) {
+      errors.push({ field: 'category', message: 'The category is required.' });
+    }
+  
+    // Remove error highlighting from all fields
+    const allFields = ['title', 'subtitle', 'abstract', 'category'];
+    allFields.forEach((field) => {
+      const element = document.getElementById(field);
+      if (element) {
+        element.classList.remove('error-highlight');
+      }
+    });
+  
+    // If there are validation errors, highlight fields and scroll to the first error
+    if (errors.length > 0) {
+      errors.forEach((error) => {
+        const errorElement = document.getElementById(error.field);
+        console.log(`Error on field: ${error.field}, Found element:`, errorElement);
+        if (errorElement) {
+          // Add red highlight to fields with errors
+          errorElement.classList.add('error-highlight');
+        }
+      });
+  
+      const firstError = errors[0];
+      const firstErrorElement = document.getElementById(firstError.field);
+      if (firstErrorElement) {
+        // Scroll smoothly to the first field with an error
+        firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstErrorElement.focus(); // Focus on the field for the user's convenience
+      }
+  
+      // Send notifications for each validation error
+      errors.forEach((error) => {
+        this.electSvr.sendNotification({
+          title: 'Validation Error',
+          message: error.message,
+        });
+      });
+  
+      return; // Stop execution if there are validation errors
+    }
+  
+    // If all validations pass, save the article
+    this.user_last_edit = this.loginSrv.getUser()?.username;
+    this.article.user_last_edit = this.user_last_edit;
+  
+    // Call the service to update the article
+    this.newsSvr.updateArticle(this.article).subscribe(() => {
+      this.newsSvr.loadArticles(); // Reload the list of articles
+      this.router.navigate(['/article-list']); // Redirect to the article list
+    });
+  
+    // Notify the user that the article has been saved
+    this.electSvr.sendNotification({
+      title: `The article "${this.article.title}" has been saved`,
+      message: 'You will be redirected to the main page.',
+      callback: () => {
+        console.log(`The article "${this.article.title}" has been saved.`);
+      },
+    });
+  
+    console.log('The user who edited the last time was: ' + this.article.user_last_edit);
   }
+  
+  
+  
 
   back(){
     this.router.navigate(['/article-list']);

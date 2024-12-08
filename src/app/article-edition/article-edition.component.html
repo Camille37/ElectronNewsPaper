@@ -25,18 +25,18 @@
     <form #myForm="ngForm" class="pb-3">
         <div class="form-text mb-1" id="basic-addon4"><strong>Title*</strong></div>
         <div class="input-group p-1 mb-3">
-            <input type="text" class="form-control border-dark" [(ngModel)]="article.title" name="title" required>
+            <input id="title" type="text" class="form-control border-dark" [(ngModel)]="article.title" name="title" required>
         </div>
 
         <div class="form-text mb-1" id="basic-addon4"><strong>Subtitle*</strong></div>
         <div class="input-group p-1 mb-3">
-            <input type="text" class="form-control border-dark" [(ngModel)]="article.subtitle" name="subtitle" required>
+            <input id="subtitle" type="text" class="form-control border-dark" [(ngModel)]="article.subtitle" name="subtitle" required>
         </div>
 
         <div class="d-flex flex-row">
             <div class="mb-1">
                 <div class="form-text mb-1" id="basic-addon4"><strong>Category*</strong></div>
-                <select class="form-select bg-light mb-3" style="max-width: 150px;" [(ngModel)]="article.category" name="category" required>
+                <select id="category" class="form-select bg-light mb-3" style="max-width: 150px;" [(ngModel)]="article.category" name="category" required>
                     <option *ngFor="let category of listCategory" [value]="category">
                         {{category}}
                     </option>
@@ -52,7 +52,7 @@
 
         <div class="form-text mb-1" id="basic-addon4"><strong>Abstract*</strong></div>
         <div class="input-group p-1 mb-3">
-            <input type="text" class="form-control border-dark" [(ngModel)]="article.abstract" name="abstract" required>
+            <input id="abstract" type="text" class="form-control border-dark" [(ngModel)]="article.abstract" name="abstract" required>
         </div>
 
         <div class="form-text mb-1" id="basic-addon4"><strong>Body</strong></div>
@@ -65,7 +65,7 @@
       </div>
 
         <div>
-            <button class="btn btn-dark me-2" type="submit" [disabled]="!myForm.form.valid" (click)="save()">Save</button>
+            <button class="btn btn-dark me-2" type="submit" (click)="save()">Save</button>
             <button class="btn btn-outline-dark" (click)="back()">Back</button>
         </div>
 
